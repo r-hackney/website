@@ -19,6 +19,8 @@ resource "aws_s3_bucket" "my_test_website_bucket" {
 resource "aws_s3_bucket_policy" "public_access" {
     bucket = aws_s3_bucket.my_test_website_bucket.id
     policy = data.aws_iam_policy_document.public_access_for_site.json
+
+    depends_on = [ aws_s3_bucket_public_access_block.allow_public_access ]
 }
 
 resource "aws_s3_bucket_website_configuration" "website_config" {
