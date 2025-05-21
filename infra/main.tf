@@ -40,6 +40,24 @@ resource "aws_s3_bucket_public_access_block" "allow_public_access" {
     restrict_public_buckets = false
 }
 
+resource "aws_route53_record" "root" {
+  zone_id = data.aws_route53_zone.primary.zone_id   # your public zone
+  name    = ""                                      # apex record
+  type    = "A"
+
+  alias {
+    name = aws_s3_bucket_website_configuration.website_config.website_domain
+    zone_id = aws_s3_bucket.my_test_website_bucket.hosted_zone_id
+    evaluate_target_health = false
+  }
+}
+
+
+data "aws_route53_zone" "primary" {
+  name = "rhackney.net."
+  private_zone = false
+}
+
 data "aws_iam_policy_document" "public_access_for_site" {
     statement {
         effect = "Allow"
