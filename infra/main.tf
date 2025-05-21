@@ -46,6 +46,6 @@ data "aws_iam_policy_document" "public_access_for_site" {
             identifiers = ["*"]
         }
         actions = ["s3:GetObject"]
-        resources = [aws_s3_bucket.my_test_website_bucket.arn + "/*"]
+        resources = ["${aws_s3_bucket.my_test_website_bucket.arn}/*"]
     }
 }
