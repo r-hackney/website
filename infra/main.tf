@@ -1,3 +1,5 @@
+## Version and provider block. ###
+
 terraform {
   required_version = ">= 1.6"
   required_providers {
@@ -7,9 +9,12 @@ terraform {
     }
   }
 }
+
 provider "aws" {
   region = "us-east-1"
 }
+
+### Create an S3 bucket, make it publicly read accessible, and set it to website mode. ###
 
 resource "aws_s3_bucket" "my_test_website_bucket" {
     bucket = "rhackney.net"
@@ -40,6 +45,8 @@ resource "aws_s3_bucket_public_access_block" "allow_public_access" {
     restrict_public_buckets = false
 }
 
+### Create an A record in Route53 and point it at our bucket. ###
+
 resource "aws_route53_record" "root" {
   zone_id = data.aws_route53_zone.primary.zone_id   # your public zone
   name    = ""                                      # apex record
@@ -52,11 +59,14 @@ resource "aws_route53_record" "root" {
   }
 }
 
+### Find our Route53 domain so we can find the zone_id later. ###
 
 data "aws_route53_zone" "primary" {
   name = "rhackney.net."
   private_zone = false
 }
+
+### Create our bucket policy. ###
 
 data "aws_iam_policy_document" "public_access_for_site" {
     statement {
