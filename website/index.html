@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang='en'>
+<html lang="en">
 <head>
-  <meta charset='UTF-8'>
+  <meta charset="UTF-8">
   <title>Robert Hackney – Resume</title>
   <style>
     /* Global font setting */
@@ -13,54 +13,75 @@
     h1, h2 {
       color: darkred;
     }
+
     /* Main content wrapper */
     #main-content {
       padding: 20px;
     }
-    /* Sidebar styles */
-    #sidebar {
+
+    /* Splash screen styles */
+    #splash {
       position: fixed;
       top: 0;
-      right: 0;
-      width: 250px;
+      left: 0;
+      width: 100%;
       height: 100%;
-      background: #f4f4f4;
-      box-shadow: -2px 0 5px rgba(0,0,0,0.3);
-      transform: translateX(100%);
-      transition: transform 0.3s ease;
-      overflow-y: auto;
-      padding: 20px;
-      z-index: 1000;
-    }
-    #sidebar.open {
-      transform: translateX(0);
-    }
-    /* Toggle button */
-    #toggleSidebar {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: darkred;
-      color: white;
-      border: none;
-      padding: 10px 15px;
+      /* Replace splash.jpg with your preferred image path or URL */
+      background: url('splash.jpg') center/cover no-repeat;
+      /* fallback color while image loads */
+      background-color: darkred;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      z-index: 2000;
       cursor: pointer;
-      border-radius: 4px;
-      z-index: 1001;
+      transition: transform 0.8s ease-in-out;
+    }
+    /* Optional dark overlay for better text contrast */
+    #splash::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      pointer-events: none;
+    }
+    #splash h1 {
+      font-size: 48px;
+      margin: 0;
+      position: relative;
+      z-index: 1;
+    }
+    #splash p {
+      font-size: 20px;
+      margin-top: 10px;
+      position: relative;
+      z-index: 1;
+    }
+    /* Slide-up animation on dismiss */
+    #splash.dismissed {
+      transform: translateY(-100%);
+    }
+    /* Prevent scrolling until splash dismissed */
+    body.locked {
+      overflow: hidden;
     }
   </style>
 </head>
-<body>
-  <button id='toggleSidebar'>Projects</button>
-
-  <div id='sidebar'>
-    <!-- Future project links go here -->
-    <p><em>Projects coming soon!</em></p>
+<body class="locked">
+  <!-- Splash screen -->
+  <div id="splash">
+    <p>Hello! I'm Robert Hackney. This website was made as part of an effort to better learn Git and Terraform.</p>
+    <p>Everything you see here was deployed via Terraform and hosted on my <a href="https://github.com/r-hackney">GitHub</a>.</p>
+    <p>Click anywhere on this page to view my resume.</p>
   </div>
 
-  <div id='main-content'>
+  <!-- Main Resume Content -->
+  <div id="main-content">
     <h1>Robert Hackney</h1>
-    <p>Deltona, FL 32725 &bull; (786) 255-0985 &bull; <a href='mailto:robertblainehackney@gmail.com'>robertblainehackney@gmail.com</a> &bull; <a href='https://github.com/r-hackney'>GitHub</a> &bull; <a href='http://rhackney.net'>rhackney.net</a></p>
+    <p>Deltona, FL 32725 &bull; (786) 255-0985 &bull; <a href="mailto:robertblainehackney@gmail.com">robertblainehackney@gmail.com</a> &bull; <a href="https://github.com/r-hackney">GitHub</a> &bull; <a href="http://rhackney.net">rhackney.net</a></p>
 
     <h2>Certifications &amp; Education</h2>
     <ul>
@@ -69,7 +90,7 @@
     </ul>
 
     <h2>Core Cloud &amp; Technical Skills</h2>
-    <table border='1' cellpadding='5' cellspacing='0'>
+    <table border="1" cellpadding="5" cellspacing="0">
       <tr>
         <th>Cloud (lab &amp; cert)</th>
         <th>Infrastructure</th>
@@ -121,10 +142,11 @@
   </div>
 
   <script>
-    const toggleBtn = document.getElementById('toggleSidebar');
-    const sidebar = document.getElementById('sidebar');
-    toggleBtn.addEventListener('click', () => {
-      sidebar.classList.toggle('open');
+    // Splash screen dismissal logic
+    const splash = document.getElementById('splash');
+    splash.addEventListener('click', () => {
+      splash.classList.add('dismissed');
+      document.body.classList.remove('locked');
     });
   </script>
 </body>
