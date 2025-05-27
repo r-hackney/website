@@ -1,1 +1,1 @@
-Learning Git + Terraform. First website test.
+Playground for learning Git + Terraform. 

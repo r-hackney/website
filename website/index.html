@@ -3,108 +3,190 @@
 <head>
   <meta charset="UTF-8">
   <title>Robert Hackney – Resume</title>
+  <!-- Modern, friendly font -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
   <style>
-    /* Global font setting */
+    /* ---------- Base typography & colors ---------- */
+    :root {
+      --brand-red: #d62828; /* primary accent */
+      --overlay-dark: rgba(0, 0, 0, 0.20);
+    }
+
     body {
-      font-family: Arial, sans-serif;
+      font-family: "Poppins", sans-serif;
       margin: 0;
       padding: 0;
+      color: #333;
     }
+
     h1, h2 {
-      color: darkred;
+      color: var(--brand-red);
     }
 
-    /* Main content wrapper */
-    #main-content {
-      padding: 20px;
-    }
-
-    /* Splash screen styles */
+    /* ---------- Splash screen styles ---------- */
     #splash {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      /* Replace splash.jpg with your preferred image path or URL */
-      background: url('splash.jpg') center/cover no-repeat;
-      /* fallback color while image loads */
-      background-color: darkred;
-      color: #fff;
+      inset: 0;
+      /* Gradient image supplied by user */
+      background: url("gradient.png") center/cover no-repeat;
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      z-index: 2000;
+      align-items: flex-start; /* push content to upper left for a more dynamic layout */
+      justify-content: flex-start;
+      padding: 8vh 10vw; /* responsive breathing room */
       cursor: pointer;
+      color: #fff;
+      overflow: hidden;
+      z-index: 2000;
       transition: transform 0.8s ease-in-out;
     }
-    /* Optional dark overlay for better text contrast */
+
+    /* darkening overlay for better text contrast */
     #splash::before {
       content: "";
       position: absolute;
       inset: 0;
-      background: rgba(0, 0, 0, 0.45);
+      background: var(--overlay-dark);
       pointer-events: none;
     }
+
+    /* container for animated intro text */
+    .splash-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1000px;
+      opacity: 0;
+      animation: fadeSlide 0.8s ease-out forwards;
+    }
+
+    @keyframes fadeSlide {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     #splash h1 {
-      font-size: 48px;
-      margin: 0;
-      position: relative;
-      z-index: 1;
+      font-size: 64px;
+      margin: 0 0 20px 0;
+      line-height: 1.1;
     }
-    #splash p {
-      font-size: 20px;
-      margin-top: 10px;
-      position: relative;
-      z-index: 1;
+
+    /* Tagline tweaks: slightly smaller & no wrapping */
+    #splash .tagline {
+      font-size: 20px;           /* a couple points smaller */
+      margin: 0 0 20px 0;
+      font-weight: 300;
+      white-space: nowrap;       /* keep on one line */
     }
-    /* Slide-up animation on dismiss */
+
+    /* Intro paragraph: aligned with heading/tagline, longer lines */
+    #splash .intro {
+      font-size: 16px;
+      font-weight: 300;
+      margin: 60px 5vw 0 0;   /* top 60, right 5vw, bottom 0, left 0 */
+      max-width: 800px;          /* allow longer line length for easier reading */
+      line-height: 1.6;
+    }
+
+    /* subtle pulse for the click‑hint */
+    .scroll-hint {
+      position: absolute;
+      bottom: 2vh;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 14px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      opacity: 0.7;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 0.7;
+        transform: translateX(-50%) translateY(0);
+      }
+      50% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(6px);
+      }
+    }
+
+    /* slide the splash out of view once dismissed */
     #splash.dismissed {
       transform: translateY(-100%);
     }
-    /* Prevent scrolling until splash dismissed */
+
+    /* prevent page scroll until splash is dismissed */
     body.locked {
       overflow: hidden;
+    }
+
+    /* ---------- Main content ---------- */
+    #main-content {
+      padding: 20px;
+    }
+
+    /* Resume table tweaks (optional visual polish) */
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px 12px;
+      text-align: left;
+    }
+
+    th {
+      background: #f8f8f8;
     }
   </style>
 </head>
 <body class="locked">
-  <!-- Splash screen -->
+  <!-- ===== Splash Screen (click to enter) ===== -->
   <div id="splash">
-    <p>Hello! I'm Robert Hackney. This website was made as part of an effort to better learn Git and Terraform.</p>
-    <p>Everything you see here was deployed via Terraform and hosted on my <a href="https://github.com/r-hackney">GitHub</a>.</p>
-    <p>Click anywhere on this page to view my resume.</p>
+    <div class="splash-inner">
+      <h1>Robert Hackney</h1>
+      <p class="tagline">IT Professional · Cloud Enthusiast · Automation Enjoyer</p>
+      <p class="intro">Welcome! I put this website together as a learning exercise for Terraform + Git. The static files live in an S3 bucket, Cloudfront handles caching and delivery, and it's all secured by an AWS Certificate Manager issued TLS cert. Everything is hosted on Github and deployed via Terraform. Click anywhere on the screen to view my resume and the rest of my links. Thanks for stopping by!</p>
+    </div>
+    <div class="scroll-hint">click anywhere</div>
   </div>
 
-  <!-- Main Resume Content -->
+  <!-- ===== Main Resume Content ===== -->
   <div id="main-content">
     <h1>Robert Hackney</h1>
-    <p>Deltona, FL 32725 &bull; (786) 255-0985 &bull; <a href="mailto:robertblainehackney@gmail.com">robertblainehackney@gmail.com</a> &bull; <a href="https://github.com/r-hackney">GitHub</a> &bull; <a href="http://rhackney.net">rhackney.net</a></p>
+    <p>Deltona, FL 32725 • (786) 255‑0985 • <a href="mailto:robertblainehackney@gmail.com">robertblainehackney@gmail.com</a> • <a href="https://github.com/r-hackney">GitHub</a> • <a href="http://rhackney.net">rhackney.net</a></p>
 
     <h2>Certifications &amp; Education</h2>
     <ul>
-      <li>AWS Solutions Architect &ndash; Associate (SAA&ndash;C03), May 2025</li>
-      <li>Associate of Arts, Valencia College, December 2019</li>
+      <li>AWS Solutions Architect – Associate (SAA‑C03), May 2025</li>
+      <li>Associate of Arts, Valencia College, December 2019</li>
     </ul>
 
     <h2>Core Cloud &amp; Technical Skills</h2>
-    <table border="1" cellpadding="5" cellspacing="0">
+    <table>
       <tr>
-        <th>Cloud (lab &amp; cert)</th>
+        <th>Cloud (lab&nbsp;&amp;&nbsp;cert)</th>
         <th>Infrastructure</th>
         <th>Automation &amp; DevOps</th>
         <th>Data &amp; BI</th>
       </tr>
       <tr>
-        <td>EC2, S3, VPC, IAM, Route 53, RDS, Lambda, CloudFormation</td>
-        <td>Active Directory, DNS, DHCP, VPN, Security Groups, NACLs, MFA, Firewalls</td>
+        <td>EC2, S3, VPC, IAM, Route 53, RDS, Lambda, CloudFormation</td>
+        <td>Active Directory, DNS, DHCP, VPN, Security Groups, NACLs, MFA, Firewalls</td>
         <td>PowerShell, Python, Bash, Git, CI/CD, Terraform</td>
-        <td>Power BI, QuickSight</td>
+        <td>Power BI, QuickSight</td>
       </tr>
     </table>
-    <p>Additional: Microsoft 365, Exchange Online, WordPress, IBM iSeries, VIP Beverage</p>
+    <p>Additional: Microsoft 365, Exchange Online, WordPress, IBM iSeries, VIP Beverage</p>
 
     <h2>Industry Experience</h2>
 
@@ -140,13 +222,14 @@
       <li>Held a Secret Clearance; separated with an honorable discharge.</li>
     </ul>
   </div>
-
+  <!-- ===== Splash Dismiss Script ===== -->
   <script>
-    // Splash screen dismissal logic
     const splash = document.getElementById('splash');
+    const body   = document.body;
+
     splash.addEventListener('click', () => {
       splash.classList.add('dismissed');
-      document.body.classList.remove('locked');
+      body.classList.remove('locked');
     });
   </script>
 </body>
