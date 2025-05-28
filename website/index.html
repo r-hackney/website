@@ -93,7 +93,7 @@
       line-height: 1.6;
     }
 
-    /* subtle pulse for the click‑hint */
+    /* subtle pulse for the click-hint */
     .scroll-hint {
       position: absolute;
       bottom: 2vh;
@@ -127,6 +127,33 @@
       overflow: hidden;
     }
 
+    /* ---------- Face image on splash ---------- */
+    .face-image {
+      position: absolute;
+      bottom: 4vh;
+      right: 4vw;
+      width: 208px; /* increased by ~30% */
+      height: 208px; /* increased by ~30% */
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #fff; /* subtle framing */
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      z-index: 1; /* above overlay */
+      opacity: 0;
+      animation: faceIn 0.8s 0.4s ease-out forwards;
+    }
+
+    @keyframes faceIn {
+      from {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
     /* ---------- Main content ---------- */
     #main-content {
       padding: 20px;
@@ -153,22 +180,24 @@
   <!-- ===== Splash Screen (click to enter) ===== -->
   <div id="splash">
     <div class="splash-inner">
-      <h1>Robert Hackney</h1>
+      <h1>Robert Hackney</h1>
       <p class="tagline">IT Professional · Cloud Enthusiast · Automation Enjoyer</p>
       <p class="intro">Welcome! I put this website together as a learning exercise for Terraform + Git. Click anywhere on the screen to view my resume, links to the Github repository for this site, as well as contact information. Thanks for stopping by!</p>
     </div>
+    <!-- Face photo (visible only on splash) -->
+    <img src="face.jpg" alt="Photo of Robert Hackney" class="face-image" />
     <div class="scroll-hint">click anywhere</div>
   </div>
 
   <!-- ===== Main Resume Content ===== -->
   <div id="main-content">
     <h1>Robert Hackney</h1>
-    <p>Deltona, FL 32725 • (786) 255‑0985 • <a href="mailto:robertblainehackney@gmail.com">robertblainehackney@gmail.com</a> • <a href="https://github.com/r-hackney">GitHub</a> • <a href="www.linkedin.com/in/robert-hackney-893067331">LinkedIn</a></p>
+    <p>Deltona, FL 32725 • (786) 255-0985 • <a href="mailto:robertblainehackney@gmail.com">robertblainehackney@gmail.com</a> • <a href="https://github.com/r-hackney">GitHub</a> • <a href="www.linkedin.com/in/robert-hackney-893067331">LinkedIn</a></p>
 
     <h2>Certifications &amp; Education</h2>
     <ul>
-      <li>AWS Solutions Architect – Associate (SAA‑C03), May 2025</li>
-      <li>Associate of Arts, Valencia College, December 2019</li>
+      <li>AWS Solutions Architect – Associate (SAA-C03), May 2025</li>
+      <li>Associate of Arts, Valencia College, December 2019</li>
     </ul>
 
     <h2>Core Cloud &amp; Technical Skills</h2>
@@ -180,57 +209,17 @@
         <th>Data &amp; BI</th>
       </tr>
       <tr>
-        <td>EC2, S3, VPC, IAM, Route 53, RDS, Lambda, CloudFormation</td>
-        <td>Active Directory, DNS, DHCP, VPN, Security Groups, NACLs, MFA, Firewalls</td>
+        <td>EC2, S3, VPC, IAM, Route 53, RDS, Lambda, CloudFormation</td>
+        <td>Active Directory, DNS, DHCP, VPN, Security Groups, NACLs, MFA, Firewalls</td>
         <td>PowerShell, Python, Bash, Git, CI/CD, Terraform</td>
-        <td>Power BI, QuickSight</td>
+        <td>Power BI, QuickSight</td>
       </tr>
     </table>
-    <p>Additional: Microsoft 365, Exchange Online, WordPress, IBM iSeries, VIP Beverage</p>
+    <p>Additional: Microsoft 365, Exchange Online, WordPress, IBM iSeries, VIP Beverage</p>
 
     <h2>Industry Experience</h2>
 
     <h3>System Administrator/IT Coordinator &mdash; Wayne Densch, Sanford, FL (Jul 2022 &ndash; Apr 2025)</h3>
     <ul>
       <li>Led development of all IT infrastructure for a multimillion-dollar headquarters build and warehouse expansion, acting as liaison between the company, construction teams, and vendors.</li>
-      <li>Administered Active Directory, Exchange, DHCP, DNS, and Microsoft 365 for 125 users, including account provisioning, group policy management, and mailbox maintenance.</li>
-      <li>Deployed Spiceworks ticketing system and defined support workflows, improving issue tracking and response times, and creating a ticket trail for support.</li>
-      <li>Migrated company website to WordPress and added a geolocation-based product finder, boosting customer engagement.</li>
-      <li>Implemented phishing simulations and user-training campaigns that improved security awareness across the organization.</li>
-      <li>Developed and maintained a comprehensive asset inventory, disaster-recovery plan, and backup schedule.</li>
-      <li>Performed an in-place upgrade of the company&rsquo;s core Windows Server from 2012 to 2022, migrating file shares, an on-server SQL database, and automated FTP-based financial workflows with zero downtime.</li>
-    </ul>
-
-    <h3>IT Specialist &mdash; Family Health Source, DeLand, FL (Jul 2020 &ndash; Jul 2022)</h3>
-    <ul>
-      <li>Provided tier-2/3 support for five primary-care clinics (~120 endpoints), diagnosing and resolving hardware, software, and network issues.</li>
-      <li>Automated employee onboarding/offboarding with PowerShell.</li>
-      <li>Wrote Python scripts that pulled call-analytics data from Dialpad APIs, automating daily email reports.</li>
-      <li>Built Power BI dashboards to visualize clinic throughput, patient wait times, and call-center statistics, informing staffing decisions and increasing efficiency.</li>
-      <li>Deployed an integrated POS system with Rx30 pharmacy software; configured VLANs and secured PCI-compliant network segmentation.</li>
-    </ul>
-
-    <h2>Other Experience</h2>
-
-    <h3>Case Manager &mdash; Sedgwick, Orlando, FL (Jul 2018 &ndash; Jul 2020)</h3>
-    <ul>
-      <li>Coordinated 40+ claims simultaneously while ensuring HIPAA compliance.</li>
-    </ul>
-
-    <h3>Cryptologic Linguist (Korean) &mdash; United States Air Force (Jul 2014 &ndash; Jul 2016)</h3>
-    <ul>
-      <li>Held a Secret Clearance; separated with an honorable discharge.</li>
-    </ul>
-  </div>
-  <!-- ===== Splash Dismiss Script ===== -->
-  <script>
-    const splash = document.getElementById('splash');
-    const body   = document.body;
-
-    splash.addEventListener('click', () => {
-      splash.classList.add('dismissed');
-      body.classList.remove('locked');
-    });
-  </script>
-</body>
-</html>
+      <li>Administered Active Directory, Exchange, DHCP, DNS,
